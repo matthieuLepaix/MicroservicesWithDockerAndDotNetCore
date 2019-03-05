@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  addition.api:
+    image: ${REGISTRY:-test}/addition.api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: ./Addition/Dockerfile
+      
+  multiplication.api:
+    image: ${REGISTRY:-test}/multiplication.api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: ./Multiplication/Dockerfile
+
+  apigateway:
+    image: ${REGISTRY:-test}/apigateway:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: ./ApiGateway/Dockerfile
+    depends_on:
+      - addition.api
